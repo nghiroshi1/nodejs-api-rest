@@ -1,0 +1,32 @@
+{
+  "name": "projeto-nodejs-rest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "nodemon --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nghiroshi1/nodejs-api-rest.git"
+  },
+  "author": "nghiroshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nghiroshi1/nodejs-api-rest/issues"
+  },
+  "homepage": "https://github.com/nghiroshi1/nodejs-api-rest#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "consign": "^0.1.6",
+    "express": "^4.17.1",
+    "mariadb": "^2.5.4",
+    "moment": "^2.29.1",
+    "nodemon": "^2.0.12",
+    "save": "^2.4.0",
+    "save-dev": "0.0.1-security"
+  }
+}
