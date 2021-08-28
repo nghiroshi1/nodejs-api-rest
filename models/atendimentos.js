@@ -59,16 +59,8 @@ class Atendimento{
 
     }
 
-    lista(res){
-        const sql = "select * from Atendimentos "
-
-        conexao.query(sql)
-        .then(resultados => {
-            res.status(200).json(resultados)
-        })
-        .catch(erro => {
-            res.status(400).json(erro)
-        })
+    lista(){
+        return repositorio.lista()
     }
 
     buscaPorId(id, res){
