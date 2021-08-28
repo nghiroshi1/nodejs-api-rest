@@ -4,27 +4,45 @@ const axios = require('axios')
 const repositorio = require('../repositorios/atendimento')
 
 class Atendimento{
-    adiciona(atendimento){
-        const dataCriacao = moment().format('YYYY-MM-DD HH:mm:SS')
-        const data = moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:mm:SS')
+    constructor(){
+        
+        this.dataEhValida = ({data, dataCriacao}) => {
+            return moment(data).isSameOrAfter(dataCriacao)
+        } 
+            
+        this.clienteEhValido = tamanho => tamanho >= 5
 
-        const dataEhValida = moment(data).isSameOrAfter(dataCriacao)
-        const clienteEhValido = atendimento.cliente.length >= 5
+        this.valida = parametros =>
+            this.validacoes.filter(campo => {
+                const nome = campo.nome
+                const parametro = parametros[nome]
+                return !campo.valido(parametro)
+            })
 
-        const validacoes = [
+        this.validacoes = [
             {
                 nome: "data",
                 mensagem: "Data dever ser maior ou igual a data atual",
-                valido: dataEhValida
+                valido: this.dataEhValida
             },
             {
                 nome: "cliente",
                 mensagem: "cliente deve ter pelo menos 5 caracteres",
-                valido: clienteEhValido
+                valido: this.clienteEhValido
             }
         ]
+    }
 
-        const erros = validacoes.filter(validacao => !validacao.valido)
+    adiciona(atendimento){
+        const dataCriacao = moment().format('YYYY-MM-DD HH:mm:SS')
+        const data = moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:mm:SS')
+
+         const parametros = {
+            "data": {data, dataCriacao},
+            "cliente": atendimento.cliente.length
+        }
+        
+        const erros = this.valida(parametros)
         const existemErros = erros.length
 
         if (existemErros){
